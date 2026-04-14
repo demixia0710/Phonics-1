@@ -1,74 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Word Family</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+const families = {
 
-<header>
-  <h1 id="title"></h1>
-</header>
+at:{
+  words:["cat","bat","hat","mat"],
+  sentence:"The cat is on the mat.",
+  quiz:[
+    {q:"c _ t", options:["cat","cot"], answer:"cat"},
+    {q:"b _ t", options:["bat","bet"], answer:"bat"}
+  ]
+},
 
-<section class="container">
+an:{
+  words:["man","pan","fan","can"],
+  sentence:"The man has a fan.",
+  quiz:[
+    {q:"m _ n", options:["man","men"], answer:"man"}
+  ]
+},
 
-  <div class="card">
-    <h2>Words</h2>
-    <p id="words"></p>
-    <img src="https://via.placeholder.com/120">
-  </div>
-
-  <div class="card">
-    <h2>Sentence</h2>
-    <p id="sentence"></p>
-  </div>
-
-  <div class="card">
-    <h2>Quiz</h2>
-    <p id="quiz"></p>
-    <button onclick="show()">Show Answer</button>
-    <p id="answer"></p>
-  </div>
-
-</section>
-
-<a href="level1.html">⬅ Back</a>
-
-<script src="data.js"></script>
-<script>
-
-const order = ["at","an","ap","ad","ag","am","ab","ack","and","ang","ank","ash","ast","atch"];
-
-const params = new URLSearchParams(window.location.search);
-const name = params.get("name");
-
-const data = families[name];
-
-document.getElementById("title").innerText = "-" + name + " Family";
-document.getElementById("words").innerText = data.words.join(" · ");
-document.getElementById("sentence").innerText = data.sentence;
-document.getElementById("quiz").innerText = data.quiz;
-
-function show(){
-  document.getElementById("answer").innerText = data.answer;
+ap:{
+  words:["cap","map","nap","tap"],
+  sentence:"I have a cap.",
+  quiz:[
+    {q:"c _ p", options:["cap","cop"], answer:"cap"}
+  ]
 }
 
-// 自动Next
-const index = order.indexOf(name);
-if(index !== -1 && index < order.length - 1){
-  const next = order[index + 1];
-  const btn = document.createElement("a");
-  btn.href = "family.html?name=" + next;
-  btn.innerText = "Next →";
-  document.body.appendChild(btn);
-} else {
-  const btn = document.createElement("a");
-  btn.href = "level1.html";
-  btn.innerText = "🏁 Finish";
-  document.body.appendChild(btn);
-}
-
-</script>
-
-</body>
-</html>
+};
