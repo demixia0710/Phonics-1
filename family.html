@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Family</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1 id="title"></h1>
+</header>
+
+<section class="container">
+
+  <div class="card">
+    <h2>Words</h2>
+    <p id="words"></p>
+  </div>
+
+  <div class="card">
+    <h2>Sentence</h2>
+    <p id="sentence"></p>
+  </div>
+
+  <div class="card">
+    <h2>Quiz</h2>
+    <p>Fill in:</p>
+    <button onclick="show()">Show Answer</button>
+    <p id="answer"></p>
+  </div>
+
+</section>
+
+<a href="level1.html">⬅ Back</a>
+
+<script src="data.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+
+const data = families[name];
+
+document.getElementById("title").innerText = "-" + name + " Family";
+document.getElementById("words").innerText = data.words.join(" · ");
+document.getElementById("sentence").innerText = data.sentence;
+
+function show(){
+  document.getElementById("answer").innerText = data.answer;
+}
+</script>
+
+</body>
+</html>
