@@ -6,68 +6,127 @@
 </head>
 <body>
 
-<header>
-  <span id="title"></span>
-</header>
+<header id="title"></header>
 
 <section class="container">
 
+  <!-- 单词 -->
   <div class="card">
-    <h2>Words 单词</h2>
-    <p id="words"></p>
-    <img src="https://via.placeholder.com/120">
+    <h2>Words 🔊</h2>
+    <div id="words"></div>
   </div>
 
+  <!-- 句子 -->
   <div class="card">
-    <h2>Sentence 句子</h2>
+    <h2>Sentence</h2>
     <p id="sentence"></p>
   </div>
 
+  <!-- Quiz -->
   <div class="card">
-    <h2>Quiz 测验</h2>
-    <p id="quiz"></p>
-    <button onclick="show()">Show Answer</button>
-    <p id="answer"></p>
+    <h2>Quiz 🎮</h2>
+    <p id="question"></p>
+    <div id="options"></div>
+    <p id="feedback"></p>
   </div>
 
 </section>
 
-<div class="back">
-  <a href="level1.html">⬅ Back</a>
-</div>
+<div class="back" id="nav"></div>
 
 <script src="data.js"></script>
 <script>
 
-const order = ["at","an","ap","ad","ag","am","ab","ack","and","ang","ank","ash","ast","atch"];
-
+const order = ["at","an","ap"];
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
-
 const data = families[name];
 
 document.getElementById("title").innerText = "-" + name + " Family";
-document.getElementById("words").innerText = data.words.join(" · ");
-document.getElementById("sentence").innerText = data.sentence;
-document.getElementById("quiz").innerText = data.quiz;
 
-function show(){
-  document.getElementById("answer").innerText = data.answer;
+/* ===== 单词 + 发音 + 图片 ===== */
+const wordsDiv = document.getElementById("words");
+
+data.words.forEach(word=>{
+  let btn = document.createElement("div");
+  btn.innerHTML = `
+    <p onclick="speak('${word}')">${word}</p>
+    <img src="https://source.unsplash.com/100x100/?${word}">
+  `;
+  wordsDiv.appendChild(btn);
+});
+
+/* ===== 发音 ===== */
+function speak(word){
+  let utter = new SpeechSynthesisUtterance(word);
+  speechSynthesis.speak(utter);
 }
 
-// Next按钮
+/* ===== Quiz ===== */
+let current = 0;
+
+function loadQuiz(){
+  let q = data.quiz[current];
+  document.getElementById("question").innerText = q.q;
+
+  let optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+
+  q.options.forEach(opt=>{
+    let btn = document.createElement("button");
+    btn.innerText = opt;
+    btn.onclick = ()=>check(opt, q.answer);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function check(choice, answer){
+  let feedback = document.getElementById("feedback");
+
+  if(choice === answer){
+    feedback.innerText = "✅ Correct!";
+    current++;
+
+    if(current < data.quiz.length){
+      setTimeout(loadQuiz, 800);
+    } else {
+      feedback.innerText = "🎉 Completed!";
+      saveProgress(name);
+    }
+
+  } else {
+    feedback.innerText = "❌ Try again";
+  }
+}
+
+/* ===== 进度记录 ===== */
+function saveProgress(name){
+  let progress = JSON.parse(localStorage.getItem("progress") || "[]");
+  if(!progress.includes(name)){
+    progress.push(name);
+    localStorage.setItem("progress", JSON.stringify(progress));
+  }
+}
+
+/* ===== Next按钮 ===== */
 const index = order.indexOf(name);
-let nextBtn = document.createElement("a");
+let nav = document.getElementById("nav");
 
-if(index !== -1 && index < order.length - 1){
-  nextBtn.href = "family.html?name=" + order[index+1];
-  nextBtn.innerText = "Next →";
-} else {
-  nextBtn.href = "level1.html";
-  nextBtn.innerText = "🏁 Finish";
+let next = document.createElement("a");
+
+if(index < order.length -1){
+  next.href = "family.html?name=" + order[index+1];
+  next.innerText = "Next →";
+}else{
+  next.href = "level1.html";
+  next.innerText = "🏁 Finish";
 }
 
-document.querySelector(".back").appendChild(nextBtn);
+nav.appendChild(next);
+
+/* 初始化 */
+document.getElementById("sentence").innerText = data.sentence;
+loadQuiz();
 
 </script>
 
