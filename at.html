@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>-at Family</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>-at Word Family</h1>
+  <p>Sound: /æ/</p>
+</header>
+
+<section class="container">
+
+  <div class="card level1">
+    <h2>Words</h2>
+    <p>cat · bat · hat · mat</p>
+  </div>
+
+  <div class="card level1">
+    <h2>Sentence</h2>
+    <p>The cat is on the mat.</p>
+  </div>
+
+  <div class="card level1">
+    <h2>Quiz</h2>
+    <p>Fill in: c _ t</p>
+    <button onclick="checkAnswer()">Show Answer</button>
+    <p id="answer"></p>
+  </div>
+
+</section>
+
+<script>
+function checkAnswer() {
+  document.getElementById("answer").innerText = "cat";
+}
+</script>
+
+</body>
+</html>
