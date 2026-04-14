@@ -7,24 +7,24 @@
 <body>
 
 <header>
-  <h1 id="title"></h1>
+  <span id="title"></span>
 </header>
 
 <section class="container">
 
   <div class="card">
-    <h2>Words</h2>
+    <h2>Words 单词</h2>
     <p id="words"></p>
     <img src="https://via.placeholder.com/120">
   </div>
 
   <div class="card">
-    <h2>Sentence</h2>
+    <h2>Sentence 句子</h2>
     <p id="sentence"></p>
   </div>
 
   <div class="card">
-    <h2>Quiz</h2>
+    <h2>Quiz 测验</h2>
     <p id="quiz"></p>
     <button onclick="show()">Show Answer</button>
     <p id="answer"></p>
@@ -32,7 +32,9 @@
 
 </section>
 
-<a href="level1.html">⬅ Back</a>
+<div class="back">
+  <a href="level1.html">⬅ Back</a>
+</div>
 
 <script src="data.js"></script>
 <script>
@@ -53,20 +55,19 @@ function show(){
   document.getElementById("answer").innerText = data.answer;
 }
 
-// 自动Next
+// Next按钮
 const index = order.indexOf(name);
+let nextBtn = document.createElement("a");
+
 if(index !== -1 && index < order.length - 1){
-  const next = order[index + 1];
-  const btn = document.createElement("a");
-  btn.href = "family.html?name=" + next;
-  btn.innerText = "Next →";
-  document.body.appendChild(btn);
+  nextBtn.href = "family.html?name=" + order[index+1];
+  nextBtn.innerText = "Next →";
 } else {
-  const btn = document.createElement("a");
-  btn.href = "level1.html";
-  btn.innerText = "🏁 Finish";
-  document.body.appendChild(btn);
+  nextBtn.href = "level1.html";
+  nextBtn.innerText = "🏁 Finish";
 }
+
+document.querySelector(".back").appendChild(nextBtn);
 
 </script>
 
