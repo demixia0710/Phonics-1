@@ -1,32 +1,80 @@
 body {
-  font-family: Arial;
-  background: #f5f7fb;
-  text-align: center;
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f7fb;
+  color: #333;
 }
 
+/* 顶部 */
 header {
-  background: #3498db;
+  background: linear-gradient(135deg, #4facfe, #00c6ff);
   color: white;
-  padding: 20px;
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
 }
 
+/* 页面容器 */
 .container {
+  max-width: 900px;
+  margin: 40px auto;
   display: grid;
   gap: 20px;
-  padding: 20px;
 }
 
+/* 卡片 */
 .card {
   background: white;
-  padding: 20px;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* 标题 */
+h2 {
+  margin-bottom: 10px;
+  color: #4facfe;
+}
+
+/* 单词 */
+#words {
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+/* 按钮 */
+a, button {
+  display: inline-block;
+  margin: 10px 5px;
+  padding: 10px 18px;
+  background: #4facfe;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+a:hover, button:hover {
+  background: #007bff;
+}
+
+/* 图片 */
+img {
+  margin-top: 10px;
   border-radius: 10px;
 }
 
-a {
-  display: inline-block;
-  margin: 10px;
-  padding: 10px 15px;
-  background: #ffffff;
-  border-radius: 8px;
-  text-decoration: none;
+/* 返回按钮 */
+.back {
+  display: block;
+  margin: 20px auto;
+  text-align: center;
 }
